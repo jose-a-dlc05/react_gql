@@ -2,16 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+	uri: 'https://rickandmortyapi.com/graphql',
+	cache: new InMemoryCache(),
+});
+// https://rickandmortyapi.com/graphql
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<ApolloProvider client={client}>
+			<App />
+		</ApolloProvider>
+	</React.StrictMode>,
+	document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// To use Apollo Client to send queries to our GraphQL server, we first need to install:
+// graphql - provides core logic for parsing GraphQL queries
+// @apollo/client - contains pretty much everything we need to build our client, including an in-memory cache, local state management, and error handling
+
+// https://odyssey.apollographql.com/lift-off-part1/apollo-client-setup
